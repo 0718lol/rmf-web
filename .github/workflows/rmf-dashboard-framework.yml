@@ -22,17 +22,17 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/${{ github.repository }}/minimal-rmf:rolling-nightly
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+    timeout-minutes: 20
     defaults:
       run:
         shell: bash
         working-directory: packages/rmf-dashboard-framework
     steps:
       - uses: actions/checkout@v5
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: bootstrap
         uses: ./.github/actions/bootstrap
         with:
