@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RMF 任务轨迹可视化</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">RMF</span><div><strong>任务轨迹</strong><small>Trajectory workspace</small></div></div>
+    <div class="top-actions"><span class="connection"><i></i><span id="connectionLabel">演示数据</span></span><button class="icon-button" id="refreshButton" title="刷新数据">↻</button><button class="outline-button" id="importButton">导入 RMF 数据</button><input id="fileInput" type="file" accept=".json,.txt" hidden></div>
+  </header>
+  <main class="shell">
+    <section class="page-heading"><div><p class="eyebrow">OPEN-RMF / OBSERVABILITY</p><h1>任务轨迹工作台</h1><p class="subheading">在真实车队接入前，用回放数据核验调度行为、路径冲突与任务时延。</p></div><div class="mode-switch" role="tablist"><button class="active" data-mode="replay">历史回放</button><button data-mode="live">实时监控</button></div></section>
+    <section class="metric-grid">
+      <article class="metric"><span>在线机器人</span><strong id="onlineCount">-- / --</strong><small id="onlineSummary">等待轨迹数据</small></article>
+      <article class="metric"><span>执行中任务</span><strong id="taskCount">--</strong><small id="taskSummary">等待任务数据</small></article>
+      <article class="metric"><span>平均任务时延</span><strong id="averageDelay">--:--</strong><small id="delaySummary">当前数据窗口</small></article>
+      <article class="metric"><span>路径重规划</span><strong id="replanCount">--</strong><small id="replanSummary">当前数据窗口</small></article>
+    </section>
+    <section class="workspace-grid">
+      <div class="map-panel panel"><div class="panel-head"><div><h2 id="mapName">RMF map</h2><p id="mapState">正在加载轨迹数据</p></div><div class="map-tools"><button class="square-button" id="fitButton" title="定位到最新时间">⌗</button><button class="square-button" id="togglePaths" title="显示或隐藏轨迹">⌁</button></div></div><div class="map-wrap"><canvas id="mapCanvas" aria-label="机器人任务轨迹地图"></canvas><div class="map-legend"><span><i class="legend-dot moving"></i>移动中</span><span><i class="legend-dot paused"></i>等待</span><span><i class="legend-dot idle"></i>待命</span><span><i class="legend-line"></i>历史轨迹</span></div></div><div class="timeline"><button id="playButton" class="play-button" title="播放 / 暂停">▶</button><span class="time-label" id="currentTime">--:--:--</span><input id="timelineInput" type="range" min="0" max="1000" value="1000"><span class="time-label" id="endTime">--:--:--</span><button id="speedButton" class="speed-button">1×</button></div></div>
+      <aside class="side-column"><div class="panel robot-panel"><div class="panel-head"><div><h2>机器人状态</h2><p>按车队和运行状态筛选</p></div><button class="more-button" title="更多筛选">⋯</button></div><div class="filters"><button class="filter active" data-filter="all">全部 <b>0</b></button><button class="filter" data-filter="delivery">配送 <b>0</b></button><button class="filter" data-filter="cleaning">清洁 <b>0</b></button><button class="filter" data-filter="warning">告警 <b>0</b></button></div><div id="robotList" class="robot-list"></div></div><div class="panel event-panel"><div class="panel-head"><div><h2>任务事件</h2><p>当前回放时间之前 · 最近 5 条</p></div><button class="more-button" title="查看全部事件">→</button></div><div id="eventList" class="event-list"></div></div></aside>
+    </section>
+    <section class="bottom-grid"><div class="panel task-panel"><div class="panel-head"><div><h2>任务执行概览</h2><p>当前回放窗口内的调度结果</p></div><button class="outline-button small" id="exportButton">导出摘要</button></div><div class="table-wrap"><table><thead><tr><th>任务</th><th>机器人</th><th>路线</th><th>耗时</th><th>结果</th></tr></thead><tbody id="taskTableBody"><tr><td colspan="5">正在加载任务数据</td></tr></tbody></table></div></div><div class="panel integration-panel"><p class="eyebrow">INTEGRATION</p><h2>RMF Web 接入状态</h2><p>使用统一数据契约接收 RMF 投影。轨迹视图只订阅数据，不接管调度控制。</p><div class="integration-row"><span class="integration-dot"></span><span id="integrationText" aria-live="polite">正在连接适配器</span><button id="copyContract" title="复制接口契约">⧉</button></div></div></section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

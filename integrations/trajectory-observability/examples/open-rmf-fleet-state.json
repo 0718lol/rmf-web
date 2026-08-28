@@ -1,0 +1,39 @@
+{
+  "name": "delivery",
+  "robots": [
+    {
+      "name": "deliveryRobot_1",
+      "model": "tinyRobot",
+      "task_id": "delivery-2026-001",
+      "seq": 42,
+      "mode": {
+        "mode": 2,
+        "mode_request_id": 8,
+        "performing_action": ""
+      },
+      "battery_percent": 83.5,
+      "location": {
+        "t": {"sec": 1787910000, "nanosec": 250000000},
+        "x": 18.4,
+        "y": 22.7,
+        "yaw": 1.57,
+        "obey_approach_speed_limit": false,
+        "approach_speed_limit": 0.0,
+        "level_name": "L1",
+        "index": 17
+      },
+      "path": [
+        {
+          "t": {"sec": 1787910001, "nanosec": 0},
+          "x": 20.0,
+          "y": 22.7,
+          "yaw": 1.57,
+          "obey_approach_speed_limit": false,
+          "approach_speed_limit": 0.0,
+          "level_name": "L1",
+          "index": 18
+        }
+      ]
+    }
+  ]
+}
