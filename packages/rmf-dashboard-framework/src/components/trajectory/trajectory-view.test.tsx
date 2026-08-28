@@ -8,7 +8,7 @@ describe('TrajectoryView', () => {
     const root = render(<TrajectoryView url="http://localhost:8080" />);
     const frame = root.getByTitle('RMF task trajectory observability');
 
-    expect(frame).toHaveAttribute('src', 'http://localhost:8080');
-    expect(frame).toHaveAttribute('sandbox');
+    expect(frame.getAttribute('src')).toBe('http://localhost:8080');
+    expect(frame.getAttribute('sandbox')).toContain('allow-scripts');
   });
 });
