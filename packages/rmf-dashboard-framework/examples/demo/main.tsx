@@ -13,6 +13,7 @@ import {
 } from 'rmf-dashboard-framework/components';
 import {
   createMapApp,
+  createTrajectoryApp,
   doorsApp,
   liftsApp,
   robotMutexGroupsApp,
@@ -28,6 +29,10 @@ const mapApp = createMapApp({
   defaultZoom: 6,
 });
 
+const trajectoryApp = createTrajectoryApp({
+  url: import.meta.env.VITE_TRAJECTORY_OBSERVABILITY_URL || 'http://localhost:8080',
+});
+
 const appRegistry: MicroAppManifest[] = [
   mapApp,
   doorsApp,
@@ -35,6 +40,7 @@ const appRegistry: MicroAppManifest[] = [
   robotsApp,
   robotMutexGroupsApp,
   tasksApp,
+  trajectoryApp,
 ];
 
 const homeWorkspace: InitialWindow[] = [
@@ -60,6 +66,10 @@ const tasksWorkspace: InitialWindow[] = [
   { layout: { x: 8, y: 0, w: 5, h: 8 }, microApp: mapApp },
 ];
 
+const trajectoryWorkspace: InitialWindow[] = [
+  { layout: { x: 0, y: 0, w: 12, h: 10 }, microApp: trajectoryApp },
+];
+
 export default function App() {
   return (
     <RmfDashboard
@@ -67,7 +77,7 @@ export default function App() {
       trajectoryServerUrl="http://localhost:8006"
       authenticator={new StubAuthenticator()}
       helpLink="https://osrf.github.io/ros2multirobotbook/rmf-core.html"
-      reportIssueLink="https://github.com/open-rmf/rmf-web/issues"
+      reportIssueLink="https://github.com/0718lol/rmf-web/issues"
       resources={{ fleets: {}, logos: { header: '/resources/defaultLogo.png' } }}
       tasks={{
         allowedTasks: [
@@ -94,6 +104,11 @@ export default function App() {
           name: 'Tasks',
           route: 'tasks',
           element: <Workspace initialWindows={tasksWorkspace} />,
+        },
+        {
+          name: 'Trajectory',
+          route: 'trajectory',
+          element: <Workspace initialWindows={trajectoryWorkspace} />,
         },
         {
           name: 'Custom',
