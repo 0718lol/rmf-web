@@ -30,10 +30,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     container:
-      image: ghcr.io/${{ github.repository }}/minimal-rmf:rolling-nightly
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      image: ghcr.io/open-rmf/rmf-web/minimal-rmf:rolling-nightly
     runs-on: ubuntu-latest
     defaults:
       run:

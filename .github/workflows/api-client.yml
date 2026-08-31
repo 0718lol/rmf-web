@@ -19,10 +19,7 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository }}/minimal-rmf:rolling-nightly
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      image: ghcr.io/open-rmf/rmf-web/minimal-rmf:rolling-nightly
     defaults:
       run:
         shell: bash
