@@ -1,3 +1,5 @@
+import os
+
 # pylint: disable=line-too-long
 config = {
     # ip or hostname to bind the socket to, this only applies when running the server in
@@ -17,7 +19,8 @@ config = {
     # path to a PEM encoded RSA public key which is used to verify JWT tokens, if the path is relative, it is based on the working dir.
     "jwt_public_key": None,
     # jwt secret, this is mutually exclusive with `jwt_public_key`.
-    "jwt_secret": "rmfisawesome",
+    # Never ship a shared signing key. Demo/tests must provide their own config.
+    "jwt_secret": os.environ.get("RMF_JWT_SECRET"),
     # url to the oidc endpoint, used to authenticate rest requests, it should point to the well known endpoint, e.g.
     # http://localhost:8080/auth/realms/rmf-web/.well-known/openid-configuration.
     # NOTE: This is ONLY used for documentation purposes, the "jwt_public_key" will be the

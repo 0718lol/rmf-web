@@ -161,7 +161,13 @@ if app.swagger_ui_oauth2_redirect_url is None:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        origin.strip()
+        for origin in os.environ.get(
+            "RMF_ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8000"
+        ).split(",")
+        if origin.strip()
+    ],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
