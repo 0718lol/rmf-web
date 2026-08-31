@@ -26,6 +26,9 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+    # GitHub Pages belongs to the upstream repository. Forks should test code,
+    # but must not attempt a deployment into the upstream Pages environment.
+    if: github.repository == 'open-rmf/rmf-web'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
